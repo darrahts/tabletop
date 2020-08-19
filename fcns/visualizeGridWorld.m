@@ -1,10 +1,9 @@
-function f = visualize(fig, title, map, poi, robot)
+function f = visualizeGridWorld(fig, map, poi, robot)
 %%
 %   draws the map, robot, and points of interest
 %
 %%
 f = figure(fig); clf;
-
 width = length(map(1,:));
 height = length(map);
 rectangle('Position', [0 0 width height]);
@@ -39,6 +38,7 @@ end
 r = plot(robot.location(1) -.7, robot.location(2)-.7, robot.direction, 'MarkerFaceColor', '#D95319', 'MarkerEdgeColor', '#D95319');
 hold off;
 
-legend([s o p b r], 'start', 'objective', 'pitfalls', 'block', 'robot');
+legend([s o p b r], map(poi.start(1,1), poi.start(1,2)).type, map(poi.objectives(1,1), poi.objectives(1,2)).type, map(poi.pitfalls(1,1), poi.pitfalls(1,2)).type, map(poi.blocks(1,1), poi.blocks(1,2)).type, robot.type);
+
 
 end
