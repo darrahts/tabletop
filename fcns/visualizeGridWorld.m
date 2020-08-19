@@ -39,6 +39,8 @@ r = plot(robot.location(1) -.7, robot.location(2)-.7, robot.direction, 'MarkerFa
 hold off;
 
 legend([s o p b r], map(poi.start(1,1), poi.start(1,2)).type, map(poi.objectives(1,1), poi.objectives(1,2)).type, map(poi.pitfalls(1,1), poi.pitfalls(1,2)).type, map(poi.blocks(1,1), poi.blocks(1,2)).type, robot.type);
+t = sprintf('location: %s\nreward: %u\ncumulativeReward: %u', robot.locationType, map(robot.location(1), robot.location(2)).reward, robot.cumulativeReward);
+annotation('textbox', [.43 .75 .27 .15], 'String', t);
 
 
 end
