@@ -1,4 +1,4 @@
-function robot = moveRobot(robot, direction, distance, map, poi)
+function agent = moveRobot(agent, direction, distance, map, poi)
 %%
 %   @brief: moves the robot and updates the robot's location, direction, locationType,
 %       and cumulative reward.
@@ -22,17 +22,17 @@ switch direction
     % move up
     case '^'
         % only updating the y coordinate
-        new = robot.location(2) + distance;
-        % check constraint 1
-        if new <= length(map)
-            loc = map(robot.location(1), new);
-            % check constraint 2
-            if strcmp(loc.type, map(poi.blocks(1,1), poi.blocks(1,2)).type) == 0
+        new = agent.location(2) + distance;
+        % ensure robot is on grid
+        if checkConstraints('Y_UPPER_LIMIT', [agent.location(1), new], map, poi)
+            % ensure robot is on valid location
+            if checkConstraints('ON_VALID_LOCATION', [agent.location(1), new], map, poi)
                 % update the robots variables
-                robot.location(2) = new;
-                robot.direction = direction;
-                robot.locationType = loc.type;
-                robot.cumulativeReward = robot.cumulativeReward + loc.reward;
+                loc = map(agent.location(1), new);
+                agent.location(2) = new;
+                agent.direction = direction;
+                agent.locationType = loc.type;
+                agent.cumulativeReward = agent.cumulativeReward + loc.reward;
             else
                 %fprintf('invalid move.');
             end
@@ -40,17 +40,17 @@ switch direction
     % move down
     case 'v'
         % only updating the y coordinate
-        new = robot.location(2) - distance;
-        % check constraint 1
-        if new > 0
-            loc = map(robot.location(1), new);
-            % check constraint 2
-            if strcmp(loc.type, map(poi.blocks(1,1), poi.blocks(1,2)).type) == 0
+        new = agent.location(2) - distance;
+        % ensure robot is on grid
+        if checkConstraints('Y_LOWER_LIMIT', [agent.location(1), new], map, poi)
+            % ensure robot is on valid location
+            if checkConstraints('ON_VALID_LOCATION', [agent.location(1), new], map, poi)
                 % update the robots variables
-                robot.location(2) = new;
-                robot.direction = direction;
-                robot.locationType = loc.type;
-                robot.cumulativeReward = robot.cumulativeReward + loc.reward;                
+                loc = map(agent.location(1), new);
+                agent.location(2) = new;
+                agent.direction = direction;
+                agent.locationType = loc.type;
+                agent.cumulativeReward = agent.cumulativeReward + loc.reward;                
             else
                 %fprintf('invalid move.');
             end
@@ -58,17 +58,17 @@ switch direction
     % move right
     case '>'
         % only updating the x coordinate
-        new = robot.location(1) + distance;
-        % check constraint 1
-        if new <= length(map(1,:))
-            loc = map(new, robot.location(2));
-            % check constraint 2
-            if strcmp(loc.type, map(poi.blocks(1,1), poi.blocks(1,2)).type) == 0
+        new = agent.location(1) + distance;
+        % ensure robot is on grid
+        if checkConstraints('X_RIGHT_LIMIT', [new, agent.location(2)], map, poi)
+            loc = map(new, agent.location(2));
+            % ensure robot is on valid location
+            if checkConstraints('ON_VALID_LOCATION', [new, agent.location(2)], map, poi)
                 % update the robots variables
-                robot.location(1) = new;
-                robot.direction = direction;
-                robot.locationType = loc.type;
-                robot.cumulativeReward = robot.cumulativeReward + loc.reward;        
+                agent.location(1) = new;
+                agent.direction = direction;
+                agent.locationType = loc.type;
+                agent.cumulativeReward = agent.cumulativeReward + loc.reward;        
             else
                 %fprintf('invalid move.');
             end
@@ -76,17 +76,17 @@ switch direction
     % move left
     case '<'
         % only updating the x coordinate
-        new = robot.location(1) - distance;
-        % check constraint 1
-        if new > 0
-            loc = map(new, robot.location(2));
-            % check constraint 2
-            if strcmp(loc.type, map(poi.blocks(1,1), poi.blocks(1,2)).type) == 0
+        new = agent.location(1) - distance;
+        % ensure robot is on grid
+        if checkConstraints('X_LEFT_LIMIT', [new, agent.location(2)], map, poi)
+            loc = map(new, agent.location(2));
+            % ensure robot is on valid location
+            if checkConstraints('ON_VALID_LOCATION', [new, agent.location(2)], map, poi)
                 % update the robots variables
-                robot.location(1) = new;
-                robot.direction = direction;
-                robot.locationType = loc.type;
-                robot.cumulativeReward = robot.cumulativeReward + loc.reward;        
+                agent.location(1) = new;
+                agent.direction = direction;
+                agent.locationType = loc.type;
+                agent.cumulativeReward = agent.cumulativeReward + loc.reward;        
             else
                 %fprintf('invalid move.');
             end
