@@ -22,6 +22,6 @@ agent.locationType = loc.type;
 agent.distance = agent.distance + 1;
 agent.soc = agent.soc - 2*distance;
 agent.cumulativeReward = r1 + r2;
-
+%agent.cumulativeReward = agent.cumulativeReward + loc.reward;
 end
 
