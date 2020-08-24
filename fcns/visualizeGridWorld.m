@@ -1,4 +1,4 @@
-function f = visualizeGridWorld(fig, map, poi, robot)
+function f = visualizeGridWorld(fig, map, poi, agent)
 %%
 %   draws the map, robot, and points of interest
 %
@@ -35,12 +35,12 @@ for i=1:length(blocks(:,:))
    b = line(blocks(i,1)-1, blocks(i,2)-1, 'LineWidth', 4, 'Color', '#000000');
 end
 
-r = plot(robot.location(1) -.7, robot.location(2)-.7, robot.direction, 'MarkerFaceColor', '#D95319', 'MarkerEdgeColor', '#D95319');
+r = plot(agent.location(1) -.7, agent.location(2)-.7, agent.direction, 'MarkerFaceColor', '#D95319', 'MarkerEdgeColor', '#D95319');
 hold off;
 
-legend([s o p b r], map(poi.start(1,1), poi.start(1,2)).type, map(poi.objectives(1,1), poi.objectives(1,2)).type, map(poi.pitfalls(1,1), poi.pitfalls(1,2)).type, map(poi.blocks(1,1), poi.blocks(1,2)).type, robot.type);
-t = sprintf('location: %s\nlocation reward: %i\ncumulativeReward: %i', robot.locationType, map(robot.location(1), robot.location(2)).reward, robot.cumulativeReward);
-annotation('textbox', [.42 .75 .28 .15], 'String', t);
+legend([s o p b r], map(poi.start(1,1), poi.start(1,2)).type, map(poi.objectives(1,1), poi.objectives(1,2)).type, map(poi.pitfalls(1,1), poi.pitfalls(1,2)).type, map(poi.blocks(1,1), poi.blocks(1,2)).type, agent.type);
+t = sprintf('location: %s\nlocation reward: %i\ncumulativeReward: %i\nSOC: %.2f\ndistance: %i', agent.locationType, map(agent.location(1), agent.location(2)).reward, agent.cumulativeReward, agent.soc, agent.distance);
+annotation('textbox', [.43 .68 .26 .22], 'String', t);
 
 
 end
