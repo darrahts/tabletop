@@ -1,5 +1,16 @@
 function out = checkConstraints(constraint, agentLocation, map, poi)
-
+%%
+%   @brief: master file for constraints
+%
+%   @inputs:
+%       constraint: the constraint "key" (i.e. 'X_LEFT_LIMIT')
+%       agentLocation: (x,y) coordinate of the agent
+%       map: the grid map the agent is on
+%       poi: map features / "points of interest"
+%
+%   @outputs:
+%       out: true if constraint is satisfied, false otherwise
+%%
 out = 0;
 switch constraint
     case 'X_LEFT_LIMIT'
