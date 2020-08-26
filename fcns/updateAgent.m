@@ -14,14 +14,10 @@ function agent = updateAgent(agent, newLoc, distance, newDir, map)
 %       agent: the updated agent
 %%
 loc = map(newLoc);
-r1 = loc.reward;
-r2 = agent.cumulativeReward;
 agent.location = newLoc;
 agent.direction = newDir;
 agent.locationType = loc.type;
 agent.distance = agent.distance + 1;
 agent.soc = agent.soc - 2*distance;
-agent.cumulativeReward = r1 + r2;
-%agent.cumulativeReward = agent.cumulativeReward + loc.reward;
 end
 
