@@ -1,22 +1,25 @@
-function teleop(robot, fignum, map, poi)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+function teleop(agent, fignum, map, poi, state)
+%TODO - does not update global state and agent. need to fix
 button = 0;
 while button ~= 113
     [~,~,button]=ginput(1);
     switch button
         case 30 %up
-            robot = moveAgent(robot, '^', 1, map, poi);
-            fig = visualizeGridWorld(fignum, map, poi, robot);
+            agent = moveAgent(agent, '^', 1, map, poi);
+            state = update_state(state, agent, map);
+            fig = visualizeGridWorld(fignum, map, poi, state, agent);
         case 31 %down
-            robot = moveAgent(robot, 'v', 1, map, poi);
-            fig = visualizeGridWorld(fignum, map, poi, robot);
+            agent = moveAgent(agent, 'v', 1, map, poi);
+            state = update_state(state, agent, map);
+            fig = visualizeGridWorld(fignum, map, poi, state, agent);
         case 28 %left
-            robot = moveAgent(robot, '<', 1, map, poi);
-            fig = visualizeGridWorld(fignum, map, poi, robot);
+            agent = moveAgent(agent, '<', 1, map, poi);
+            state = update_state(state, agent, map);
+            fig = visualizeGridWorld(fignum, map, poi, state, agent);
         case 29 %right
-            robot = moveAgent(robot, '>', 1, map, poi);
-            fig = visualizeGridWorld(fignum, map, poi, robot);
+            agent = moveAgent(agent, '>', 1, map, poi);
+            state = update_state(state, agent, map);
+            fig = visualizeGridWorld(fignum, map, poi, state, agent);
         otherwise
             break
     end
