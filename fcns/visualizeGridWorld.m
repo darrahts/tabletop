@@ -1,4 +1,4 @@
-function f = visualizeGridWorld(fig, map, poi, agent)
+function f = visualizeGridWorld(fig, map, poi, state, agent)
 %%
 %   draws the map, robot, and points of interest
 %
@@ -39,8 +39,8 @@ r = plot(agent.location(1) -.7, agent.location(2)-.7, agent.direction, 'MarkerFa
 hold off;
 
 legend([s o p b r], map(poi.start(1,1), poi.start(1,2)).type, map(poi.objectives(1,1), poi.objectives(1,2)).type, map(poi.pitfalls(1,1), poi.pitfalls(1,2)).type, map(poi.blocks(1,1), poi.blocks(1,2)).type, agent.type);
-t = sprintf('location: %s\ncumulativeReward: %i\nSOC: %.2f\ndistance: %i', agent.locationType, agent.cumulativeReward, agent.soc, agent.distance);
-annotation('textbox', [.43 .72 .26 .18], 'String', t);
+t = sprintf('location: %s\nbattery: %i\nobjectives: [%i,%i]', mat2str(state.location), state.battery, state.achieved1, state.achieved2);
+annotation('textbox', [.5 .735 .2 .16], 'String', t);
 
 
 end
