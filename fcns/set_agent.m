@@ -1,4 +1,4 @@
-function agent = set_agent(map, location, distance, direction, soc, batteryState, cumulativeReward)
+function agent = set_agent(agent, map, location, distance, direction, soc, batteryState, cumulativeReward)
 %%
 %   @brief: sets the agents parameters, useful for iterative debugging
 %
@@ -14,9 +14,7 @@ agent.locationType = map(location(1), location(2)).type;
 agent.direction = direction;
 agent.distance = distance;
 agent.soc = soc;
-agent.batteryState = batteryState;
 agent.cumulativeReward = cumulativeReward;
-agent.type = "robot";
 
 end
 
