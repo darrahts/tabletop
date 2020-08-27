@@ -19,5 +19,7 @@ agent.direction = newDir;
 agent.locationType = loc.type;
 agent.distance = agent.distance + 1;
 agent.soc = agent.soc - 2*distance;
+
+
 end
 
