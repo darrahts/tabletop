@@ -38,9 +38,9 @@ end
 r = plot(agent.location(1) -.7, agent.location(2)-.7, agent.direction, 'MarkerFaceColor', '#D95319', 'MarkerEdgeColor', '#D95319');
 hold off;
 
-legend([s o p b r], map(poi.start(1,1), poi.start(1,2)).type, map(poi.objectives(1,1), poi.objectives(1,2)).type, map(poi.pitfalls(1,1), poi.pitfalls(1,2)).type, map(poi.blocks(1,1), poi.blocks(1,2)).type, agent.type);
+legend([s o p b r], map(poi.start(1,1), poi.start(1,2)).type, map(poi.objectives(1,1), poi.objectives(1,2)).type, map(poi.pitfalls(1,1), poi.pitfalls(1,2)).type, map(poi.blocks(1,1), poi.blocks(1,2)).type, agent.type, 'Location', 'northeastoutside');
 t = sprintf('location: %s\nbattery: %i\nobjectives: [%i,%i]', mat2str(state.location), state.battery, state.achieved1, state.achieved2);
-annotation('textbox', [.5 .735 .2 .16], 'String', t);
+annotation('textbox', [.749 .535 .2 .16], 'String', t);
 
 
 end
