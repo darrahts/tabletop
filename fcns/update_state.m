@@ -1,5 +1,15 @@
 function state = update_state(state, agent, map)
-
+%%
+%   @brief: updates the MDP state
+%
+%   @inputs:
+%       state: current state
+%       agent: the agent to update
+%       map: the map the agent is on
+%
+%   @outputs:
+%       state: the updated state
+%%
 state.location = agent.location;
 
 if agent.soc >= 84
