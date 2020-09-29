@@ -1,4 +1,19 @@
 function validActions = getValidActions(j, i, map, actions)
+%%
+%   @brief: gets the valid actions for the current state.
+%
+%   @inputs:
+%       j: column index aka the x value in a grid state (x,y) coord
+%       i: row index aka the y value in a grid state (x,y) coord
+%       map: gridword map
+%       actions: list of valid actions
+%
+%   @outputs:
+%       list of valid actions for a given state
+%
+%   @todo: update function to reflect "state", not just coord location
+%%
+
     validActions = actions;
   % cannot go left / west in these states
     if(j == 1)
