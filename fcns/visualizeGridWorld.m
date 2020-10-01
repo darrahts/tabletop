@@ -51,7 +51,7 @@ for i=1:length(map(1,:))
         text(j-.9, i-.9, sprintf("s(%d)", num));
         
         if(contains(map(num).validActions, '^'))
-            plot(j-.45, i-.1, '^', 'MarkerFaceColor', 'none', 'MarkerEdgeColor', 'k', 'MarkerSize', 5);
+            u = plot(j-.45, i-.1, '^', 'MarkerFaceColor', 'none', 'MarkerEdgeColor', 'k', 'MarkerSize', 5);
         end
         if(contains(map(num).validActions, 'v'))
             plot(j-.45, i-.9, 'v', 'MarkerFaceColor', 'none', 'MarkerEdgeColor', 'k', 'MarkerSize', 5);
@@ -62,33 +62,16 @@ for i=1:length(map(1,:))
         if(contains(map(num).validActions, '>'))
             plot(j-.1, i-.6, '>', 'MarkerFaceColor', 'none', 'MarkerEdgeColor', 'k', 'MarkerSize', 5);
         end
-        
-%        % cannot go left / west in these states
-%         if(j == 1)
-%             %text(j-.9, i-.6, sprintf("<"));
-%             plot(j-.9, i-.6, '<', 'MarkerFaceColor', 'none', 'MarkerEdgeColor', 'k', 'MarkerSize', 5);
-%         % cannot go right / east in these states
-%         elseif(j == length(map(:,1)))
-%             plot(j-.1, i-.6, '>', 'MarkerFaceColor', 'none', 'MarkerEdgeColor', 'k', 'MarkerSize', 5);
-%         end
-%         % cannot go up / north in these states
-%         if(i == length(map(1,:)))
-%             plot(j-.45, i-.1, '^', 'MarkerFaceColor', 'none', 'MarkerEdgeColor', 'k', 'MarkerSize', 5);
-%         % cannot go down / south in these states
-%         elseif(i == 1)
-%             plot(j-.45, i-.9, 'v', 'MarkerFaceColor', 'none', 'MarkerEdgeColor', 'k', 'MarkerSize', 5);
-%         end         
 
-        
         % up / north
         if(policy(num) == 1)
-            annotation('arrow', [(j/length(map(:,1))/1.5 +.05) (j/length(map(:,1))/1.5 + .05)], [((i-1)/3.5 + .15) ((i-1)/3.5 + .25)]);
+            a = annotation('arrow', [(j/length(map(:,1))/1.5 +.05) (j/length(map(:,1))/1.5 + .05)], [((i-1)/3.5 + .15) ((i-1)/3.5 + .25)]);
         % down / south
         elseif(policy(num) == 2)
             annotation('arrow', [(j/length(map(:,1))/1.5 +.05) (j/length(map(:,1))/1.5 + .05)], [((i-1)/3.5 + .25) ((i-1)/3.5 + .15)]);
         % left / west
         elseif(policy(num) == 3)
-            annotation('arrow', [(j/length(map(:,1))/1.5 +.035) (j/length(map(:,1))/1.5 + .08)], [((i-1)/3.5 + .2) ((i-1)/3.5 + .2)]);
+            annotation('arrow', [(j/length(map(:,1))/1.5 + .08) (j/length(map(:,1))/1.5 +.035)], [((i-1)/3.5 + .2) ((i-1)/3.5 + .2)]);
         % right / east
         else
             annotation('arrow', [(j/length(map(:,1))/1.5 +.035) (j/length(map(:,1))/1.5 + .08)], [((i-1)/3.5 + .2) ((i-1)/3.5 + .2)]);
@@ -98,12 +81,15 @@ for i=1:length(map(1,:))
     end
 end
 
+annotation('arrow', [.8 .86], [.59 .59]);
 r = plot(agent.location(1) -.7, agent.location(2)-.7, agent.direction, 'MarkerFaceColor', '#D95319', 'MarkerEdgeColor', '#D95319', 'MarkerSize', 14);
 hold off;
 
-legend([s o p b r], map(poi.start(1,1), poi.start(1,2)).type, map(poi.objectives(1,1), poi.objectives(1,2)).type, map(poi.pitfalls(1,1), poi.pitfalls(1,2)).type, map(poi.blocks(1,1), poi.blocks(1,2)).type, agent.type, 'Location', 'northeastoutside');
-t = sprintf('location: %s\nbattery: %i\nobjectives: [%i]', mat2str(state.location), state.battery, state.achieved1);%, state.achieved2);
-annotation('textbox', [.79 .535 .14 .16], 'String', t);
+legend([s o p b r u], map(poi.start(1,1), poi.start(1,2)).type, map(poi.objectives(1,1), poi.objectives(1,2)).type, map(poi.pitfalls(1,1), poi.pitfalls(1,2)).type, map(poi.blocks(1,1), poi.blocks(1,2)).type, agent.type, 'actions', 'Location', 'northeastoutside');
+
+
+t = sprintf('policy\n\nlocation: %s\nbattery: %i\nobjectives: [%i]', mat2str(state.location), state.battery, state.achieved1);%, state.achieved2);
+annotation('textbox', [.795 .4 .125 .26], 'String', t);
 
 
 end
