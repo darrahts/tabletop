@@ -13,8 +13,24 @@ function validActions = getValidActions(j, i, map, actions)
 %
 %   @todo: update function to reflect "state", not just coord location
 %%
-
     validActions = actions;
+
+    % short circuit blocks and exits
+    if(map(j,i).type == "block")
+        validActions = '';
+        return;
+    end
+
+    if(map(j,i).label == "O-1" || map(j,i).label == "P-1")
+        validActions = '*';
+        return;
+    elseif(map(j,i).type == "exit")
+        validActions = 'o';
+    else
+        validActions = erase(validActions, '*');
+        validActions = erase(validActions, 'o');
+    end
+
   % cannot go left / west in these states
     if(j == 1)
         validActions = erase(validActions, '<');
@@ -35,11 +51,7 @@ function validActions = getValidActions(j, i, map, actions)
     if(i == 1)
         validActions = erase(validActions, 'v');
         % plot(j-.45, i-.9, 'v', 'MarkerFaceColor', 'k', 'MarkerEdgeColor', 'k', 'MarkerSize', 5);
-    end
-    
-    if(map(j,i).type == "block")
-        validActions = '';
-    end
+    end 
     
     % cant move on block spaces
     if(contains(validActions, '^') && map(j,i+1).type == "block")

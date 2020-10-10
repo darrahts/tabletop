@@ -28,7 +28,7 @@ text(start(1)-.2, start(2)-.1, "S", 'FontSize', 16);
 
 for i=1:length(objectives(:,1))
    rectangle('Position', [objectives(i,1)-1, objectives(i,2)-1, 1, 1], 'FaceColor', 	'#77AC30');
-   text(objectives(i,1)-.3, objectives(i,2)-.1, sprintf("O-%d", i), 'FontSize', 16);
+   text(objectives(i,1)-.35, objectives(i,2)-.1, sprintf("O-%d", i), 'FontSize', 16);
    o = line(objectives(i,1)-1, objectives(i,2)-1, 'LineWidth', 4, 'Color', '#77AC30');
 end
 for i=1:length(pitfalls(:,1))
@@ -39,7 +39,9 @@ end
 
 for i=1:length(blocks(:,1))
    rectangle('Position', [blocks(i,1)-1, blocks(i,2)-1, 1, 1], 'FaceColor', 	'#000000');
-   b = line(blocks(i,1)-1, blocks(i,2)-1, 'LineWidth', 4, 'Color', '#000000');
+   if i == 1
+        b = line(blocks(i,1)-1, blocks(i,2)-1, 'LineWidth', 4, 'Color', '#000000');
+   end
 end
 
 num = 1;
@@ -62,6 +64,9 @@ for i=1:length(map(1,:))
         if(contains(map(num).validActions, '>'))
             plot(j-.1, i-.6, '>', 'MarkerFaceColor', 'none', 'MarkerEdgeColor', 'k', 'MarkerSize', 5);
         end
+        if(contains(map(num).validActions, '*'))
+            plot(j-.1, i-.6, '*', 'MarkerFaceColor', 'none', 'MarkerEdgeColor', 'k', 'MarkerSize', 5);
+        end
 
         % up / north
         if(policy(num) == 1)
@@ -73,10 +78,11 @@ for i=1:length(map(1,:))
         elseif(policy(num) == 3)
             annotation('arrow', [(j/length(map(:,1))/1.5 + .08) (j/length(map(:,1))/1.5 +.035)], [((i-1)/3.5 + .2) ((i-1)/3.5 + .2)]);
         % right / east
-        else
+        elseif(policy(num) == 4)
             annotation('arrow', [(j/length(map(:,1))/1.5 +.035) (j/length(map(:,1))/1.5 + .08)], [((i-1)/3.5 + .2) ((i-1)/3.5 + .2)]);
+        elseif(policy(num) == 5)
+            annotation('textarrow', [(j/length(map(:,1))/1.5 +.035) (j/length(map(:,1))/1.5 + .08)], [((i-1)/3.5 + .2) ((i-1)/3.5 + .2)], 'String', 'exit');
         end
-        
         num = num + 1;
     end
 end
