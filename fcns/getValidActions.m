@@ -22,10 +22,8 @@ function validActions = getValidActions(j, i, map, actions)
     end
 
     if(map(j,i).label == "O-1" || map(j,i).label == "P-1")
-        validActions = '*';
+        validActions = '*'; % i.e. exit / stay
         return;
-    elseif(map(j,i).type == "exit")
-        validActions = 'o';
     else
         validActions = erase(validActions, '*');
         validActions = erase(validActions, 'o');
