@@ -26,7 +26,6 @@ function validActions = getValidActions(j, i, map, actions)
         return;
     else
         validActions = erase(validActions, '*');
-        validActions = erase(validActions, 'o');
     end
 
   % cannot go left / west in these states
